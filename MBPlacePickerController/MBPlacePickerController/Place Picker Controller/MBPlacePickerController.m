@@ -259,8 +259,9 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
 
 - (void)dismiss
 {
- [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
- }];
+    [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        self.navigationItem.prompt = nil;
+    }];
 }
 
 #pragma mark - Automatic Location Updates
@@ -539,18 +540,18 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
     self.location = place;
     
     /**
+     *  Update the map.
+     */
+    
+    [self.map markCoordinate:coordinate];
+    
+    /**
      *  Call the delegate method with the place.
      */
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(placePickerController:didChangeToPlace:)]) {
         [self.delegate placePickerController:self didChangeToPlace:place];
     }
-    
-    /**
-     *  Update the map.
-     */
-    
-    [self.map markCoordinate:coordinate];
     
     /**
      *  Update the list.
