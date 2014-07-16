@@ -212,10 +212,7 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    /**
-     *  TODO: Re-size map if necessary.
-     */
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -249,6 +246,15 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
 
 - (void)display
 {
+    
+    /**
+     *
+     */
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        [self.navigationController setModalPresentationStyle:UIModalPresentationFormSheet];
+    }
     
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:self.navigationController animated:YES completion:nil];
 }
