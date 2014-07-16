@@ -265,8 +265,9 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
 
 - (void)dismiss
 {
- [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
- }];
+    [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        self.navigationItem.prompt = nil;
+    }];
 }
 
 #pragma mark - Automatic Location Updates
@@ -336,9 +337,10 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
             /**
              *  ...and attempt to call the delegate.
              */
-            if ([self.delegate respondsToSelector:@selector(placePickerController:didChangeToPlace:)])
+            if ([[self delegate] respondsToSelector:@selector(placePickerController:didChangeToPlace:)])
             {
                 [[self delegate] placePickerController:self didChangeToPlace:lastLocation];
+                [self dismiss];
             }
         }
     }];
@@ -545,18 +547,19 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
     self.location = place;
     
     /**
-     *  Call the delegate method with the place.
-     */
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(placePickerController:didChangeToPlace:)]) {
-        [self.delegate placePickerController:self didChangeToPlace:place];
-    }
-    
-    /**
      *  Update the map.
      */
     
     [self.map markCoordinate:coordinate];
+    
+    /**
+     *  Call the delegate method with the place.
+     */
+    
+    if ([self delegate] && [[self delegate] respondsToSelector:@selector(placePickerController:didChangeToPlace:)]) {
+        [[self delegate] placePickerController:self didChangeToPlace:place];
+        [self dismiss];
+    }
     
     /**
      *  Update the list.
