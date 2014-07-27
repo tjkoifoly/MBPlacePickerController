@@ -25,8 +25,8 @@
   },
   {
   "name" : "Buenos Aires, Argentina",
-  "longitude" : -37.633333,
-  "latitude" : -7.966667,
+  "longitude" : -58.381593,
+  "latitude" : -734.603723,
   "continent" : "South America"
   },
   {
@@ -177,7 +177,7 @@
   "name" : "Mexico City, Mexico",
   "longitude" : -99.1275711,
   "latitude" : 19.4270499,
-  "continent" : "Central America"
+  "continent" : "South America"
   },
   {
   "name" : "Miami, Florida, USA",
@@ -196,6 +196,12 @@
   "longitude" : -93.263836,
   "latitude" : 44.979965,
   "continent" : "North America"
+  },
+  {
+  "name" : "Montevideo, Uruguay",
+  "longitude" : -56.181944,
+  "latitude" : -34.883611,
+  "continent" : "South America"
   },
   {
   "name" : "Montreal, Canada",
@@ -258,6 +264,12 @@
   "continent" : "Asia"
   },
   {
+  "name" : "Rio De Janeiro, Brazil",
+  "longitude" : -43.197077,
+  "latitude" : -22.908300,
+  "continent" : "South America"
+  },
+  {
   "name" : "San Diego, California, USA",
   "longitude" : -117.157255,
   "latitude" : 32.715329,
@@ -276,7 +288,7 @@
   "continent" : "North America"
   },
   {
-  "name" : "Sau Paulo, Brazil",
+  "name" : "Sao Paulo, Brazil",
   "longitude" : -46.6388182,
   "latitude" : -23.5489433,
   "continent" : "South America"
