@@ -110,8 +110,9 @@ static NSString *kLocationPersistenceKey = @"com.mosheberman.location-persist-ke
         _location = location;
         
         /**
-         *
+         *  A transience property, defaulted to YES.
          */
+        
         _transient = YES;
     }
     
