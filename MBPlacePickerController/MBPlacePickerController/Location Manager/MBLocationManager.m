@@ -130,13 +130,13 @@
 {
     [self setCompletion:completion];
     
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
-    {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-    else if([self authorizedAlways] || [self authorizedWhenInUse])
+    if([self authorizedAlways] || [self authorizedWhenInUse])
     {
             [[self locationManager] startUpdatingLocation];
+    }
+    else
+    {
+        [self.locationManager requestAlwaysAuthorization];
     }
 }
 
@@ -183,10 +183,25 @@
     {
         [self.locationManager startUpdatingLocation];
     }
+    else if([self authorizationNotDetermined] == YES)
+    {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     else
     {
-        NSLog(@"(MBLocationManager) : Location manager changed authorization from one of the authorizd states to a not authorized state.");
+        NSLog(@"(MBLocationManager) : Location manager changed authorization from one of the authorizd states to a not authorized state. (State: %li)", (long)[CLLocationManager authorizationStatus]);
     }
+    
+    self.status = status;
+}
+
+/**
+ *  @return YES if the authorization status is not determined, else NO.
+ */
+
+- (BOOL)authorizationNotDetermined
+{
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined;
 }
 
 /**
