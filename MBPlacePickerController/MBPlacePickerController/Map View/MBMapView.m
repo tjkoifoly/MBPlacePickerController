@@ -54,7 +54,7 @@
     self = [super initWithImage:[UIImage imageNamed:@"equi-map"]];
     if (self)
     {
-        _markerDiameter = 30.0f;
+        _markerDiameter = 15.0f;
         _markerColor = [UIColor redColor];
         _showUserLocation = NO;
     }
@@ -142,14 +142,14 @@
  *  A marker for a location.
  */
 
-- (UIView *)marker
+- (MBMarkerView *)marker
 {
     if (!self._markedLocationView)
     {
         self._markedLocationView = [[MBMarkerView alloc] init];
-        self._markedLocationView.diameter = self.markerDiameter;
+        self._markedLocationView.radius = self.markerDiameter;
         self._markedLocationView.borderWidth = 1.0f;
-        self._markedLocationView.animated = NO;
+        self._markedLocationView.animated = YES;
     }
     
     self._markedLocationView.color = self.markerColor;
@@ -161,12 +161,12 @@
  *  @return A marker representing the user's location.
  */
 
-- (UIView *)userMarker
+- (MBMarkerView *)userMarker
 {
     if (!self._userMarkerView)
     {
         self._userMarkerView = [[MBMarkerView alloc] init];
-        self._userMarkerView.diameter = 15.0f;
+        self._userMarkerView.radius = 8.0f;
         self._userMarkerView.borderWidth = 1.0f;
         self._userMarkerView.animated = YES;
     }
@@ -191,37 +191,32 @@
 {
     CGPoint center = [self pointFromLatitude:coordinate.latitude andLongitude:coordinate.longitude];
     
-    UIView *marker = [self marker];
+    MBMarkerView *marker = [self marker];
     
-    marker.layer.cornerRadius = self.markerDiameter/2.0f;
+    [marker setRadius:self.markerDiameter];
     
     if (![self.subviews containsObject:[self marker]])
     {
         marker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0, 0);
         
-        [marker setAlpha:0.0f];
         [marker setCenter:center];
-        
         [self addSubview:marker];
+        marker.transform = CGAffineTransformIdentity;
+        
     }
     else
     {
-        marker.transform = CGAffineTransformIdentity;
+        [UIView animateWithDuration:0.20
+                         animations:^{
+                             [marker setCenter:center];
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
     }
     
-    [UIView animateWithDuration:0.1
-                     animations:^{
-                         marker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-                     }
-                     completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.20 animations:^{
-                             [marker setCenter:center];
-                             [marker setAlpha:1.0];
-                         }
-                                          completion:^(BOOL finished) {
-                                              marker.transform = CGAffineTransformIdentity;
-                                          }];
-                     }];
+    
+    
     
     
     
@@ -252,12 +247,11 @@
         {
             [UIView animateWithDuration:0.3 animations:^{
                 
-                CGRect markerRect = marker.frame;
-                markerRect.size = CGSizeMake(0.0, 0.0);
-                marker.frame = markerRect;
-                marker.frame = markerRect;
+                marker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0, 0);
+                
             } completion:^(BOOL finished) {
                 [marker removeFromSuperview];
+                marker.transform = CGAffineTransformIdentity;
             }];
         }
     }
@@ -293,13 +287,13 @@
  *  Set the indicator radius. Setting to a negative will do nothing.
  */
 
-- (void)setMarkerDiameter:(CGFloat)markerRadius
+- (void)setMarkerDiameter:(CGFloat)markerDiameter
 {
-    if (markerRadius < 0)
+    if (markerDiameter < 0)
     {
         return;
     }
-    _markerDiameter = markerRadius;
+    _markerDiameter = markerDiameter;
     
     [self refreshMarker];
 }
