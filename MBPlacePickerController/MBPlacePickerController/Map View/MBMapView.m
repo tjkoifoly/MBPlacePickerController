@@ -8,6 +8,7 @@
 
 #import "MBMapView.h"
 #import "MBLocationManager.h"
+#import "MBMarkerView.h"
 
 @interface MBMapView ()
 
@@ -16,6 +17,18 @@
  */
 
 @property (nonatomic, assign) CLLocationCoordinate2D lastCoordinate;
+
+/**
+ *
+ */
+
+@property (nonatomic, strong) MBMarkerView *_userMarkerView;
+
+/**
+ *
+ */
+
+@property (nonatomic, strong) MBMarkerView *_markedLocationView;
 
 @end
 
@@ -131,19 +144,17 @@
 
 - (UIView *)marker
 {
-    static UIView *marker = nil;
-    
-    if (!marker)
+    if (!self._markedLocationView)
     {
-        marker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.markerDiameter, self.markerDiameter)];
-        marker.layer.borderWidth = 1.0f;
-        marker.layer.cornerRadius = CGRectGetHeight(marker.bounds)/2.0f;
+        self._markedLocationView = [[MBMarkerView alloc] init];
+        self._markedLocationView.diameter = self.markerDiameter;
+        self._markedLocationView.borderWidth = 1.0f;
+        self._markedLocationView.animated = NO;
     }
     
-    marker.layer.borderColor = [self.markerColor CGColor];
-    marker.backgroundColor = [self.markerColor colorWithAlphaComponent:0.7];
+    self._markedLocationView.color = self.markerColor;
     
-    return marker;
+    return self._markedLocationView;
 }
 
 /**
@@ -152,19 +163,17 @@
 
 - (UIView *)userMarker
 {
-    static UIView *marker = nil;
-    
-    if (!marker)
+    if (!self._userMarkerView)
     {
-        marker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15.0f, 15.0f)];
-        marker.layer.borderWidth = 1.0f;
-        marker.layer.cornerRadius = CGRectGetHeight(marker.bounds)/2.0f;
+        self._userMarkerView = [[MBMarkerView alloc] init];
+        self._userMarkerView.diameter = 15.0f;
+        self._userMarkerView.borderWidth = 1.0f;
+        self._userMarkerView.animated = YES;
     }
     
-    marker.layer.borderColor = self.tintColor.CGColor;
-    marker.backgroundColor = [[UIColor colorWithCGColor:marker.layer.borderColor] colorWithAlphaComponent:0.7];
+    self._userMarkerView.color = self.tintColor;
     
-    return marker;
+    return self._userMarkerView;
 }
 
 #pragma mark -  Displaying Markers
@@ -188,7 +197,7 @@
     
     if (![self.subviews containsObject:[self marker]])
     {
-        marker.frame = CGRectMake(0, 0, 0, 0);
+        marker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0, 0);
         
         [marker setAlpha:0.0f];
         [marker setCenter:center];
@@ -197,17 +206,12 @@
     }
     else
     {
-        CGRect markerRect = marker.frame;
-        markerRect.size = CGSizeMake(self.markerDiameter, self.markerDiameter);
-        marker.frame = markerRect;
+        marker.transform = CGAffineTransformIdentity;
     }
     
     [UIView animateWithDuration:0.1
                      animations:^{
-                         CGRect markerRect = marker.frame;
-                         markerRect.size = CGSizeMake(self.markerDiameter * 1.1f, self.markerDiameter * 1.1f);
-                         marker.frame = markerRect;
-                         marker.layer.cornerRadius = self.markerDiameter/2.0f;
+                         marker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
                      }
                      completion:^(BOOL finished) {
                          [UIView animateWithDuration:0.20 animations:^{
@@ -215,10 +219,7 @@
                              [marker setAlpha:1.0];
                          }
                                           completion:^(BOOL finished) {
-                                              CGRect markerRect = marker.frame;
-                                              markerRect.size = CGSizeMake(self.markerDiameter, self.markerDiameter);
-                                              marker.frame = markerRect;
-                                              marker.layer.cornerRadius = self.markerDiameter/2.0f;
+                                              marker.transform = CGAffineTransformIdentity;
                                           }];
                      }];
     
