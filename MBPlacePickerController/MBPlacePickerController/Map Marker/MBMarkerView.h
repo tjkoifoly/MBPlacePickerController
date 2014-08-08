@@ -23,15 +23,23 @@
 @property (nonatomic, assign) CGFloat borderWidth;
 
 /**
- *  The size of the marker.
+ *  The diameter of the marker. Values less than zero are ignored. Summarily.
  */
 
-@property (nonatomic, assign) CGFloat diameter;
+@property (nonatomic, assign) CGFloat radius;
 
 /**
- *
+ *  Toggles animation.
  */
 
 @property (nonatomic, assign) BOOL animated;
+
+/**
+ *  Setting the diameter simply calls setRadius: now.
+ *
+ *  @param diameter Twice the radius to set.
+ */
+
+- (void)setDiameter:(CGFloat)diameter;
 
 @end
