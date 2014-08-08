@@ -72,7 +72,7 @@
  *  @name Intializer
  *  ---
  */
- 
+
 /**
  *  Designated initializer.
  */
@@ -130,9 +130,9 @@
 {
     [self setCompletion:completion];
     
-    if([self authorizedAlways] || [self authorizedWhenInUse])
+    if([self authorizedAlways] || [self authorizedWhenInUse] || ([self isOlderSystem] && ![self authorizationDenied]))
     {
-            [[self locationManager] startUpdatingLocation];
+        [[self locationManager] startUpdatingLocation];
     }
     else
     {
@@ -247,7 +247,7 @@
  *
  *  NSLocationWhenInUseUsageDescription - Allows the app to monitor location when visible.
  *
- *  NSLocationAlwaysUsageDescription - Allows the app to monitor location when visible and 
+ *  NSLocationAlwaysUsageDescription - Allows the app to monitor location when visible and
  *  when in the background. Also allows for all the other location goodies described in
  *  CoreLocationManager.h.
  *
@@ -255,19 +255,38 @@
 
 - (void)requestAuthorization
 {
-    NSArray *keys = [[[NSBundle mainBundle] infoDictionary] allKeys];
-    
-    if ([keys containsObject:@"NSLocationWhenInUseUsageDescription"])
+    if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
     {
+        NSArray *keys = [[[NSBundle mainBundle] infoDictionary] allKeys];
+        
+        if ([keys containsObject:@"NSLocationWhenInUseUsageDescription"])
+        {
             [self.locationManager requestWhenInUseAuthorization];
-    }
-    else if ([keys containsObject:@"NSLocationAlwaysUsageDescription"])
-    {
-        [self.locationManager requestAlwaysAuthorization];
+        }
+        else if ([keys containsObject:@"NSLocationAlwaysUsageDescription"])
+        {
+            [self.locationManager requestAlwaysAuthorization];
+            
+        }
+        else
+        {
+            NSLog(@"<%@> : The application's Info.plist is missing both of the required keys. Add either 'NSLocationWhenInUseUsageDescription' or 'NSLocationAlwaysUsageDescription' as required by iOS 8.", [self.class description]);
+        }
     }
     else
     {
-        NSLog(@"<%@> : The application's Info.plist is missing both of the required keys. Add either 'NSLocationWhenInUseUsageDescription' or 'NSLocationAlwaysUsageDescription' as required by iOS 8.", [self.class description]);
+        
     }
+}
+
+#pragma mark - Check System Version
+
+/**
+ *  @return YES if the version is less than 8, returns NO for 8+
+ */
+
+- (BOOL)isOlderSystem
+{
+    return [[[UIDevice currentDevice] systemVersion] floatValue] < 8.0;
 }
 @end

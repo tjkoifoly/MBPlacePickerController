@@ -46,5 +46,36 @@ typedef void(^MBLocationManagerUpdateCompletionBlock)(NSArray *locations, CLHead
 
 - (CLHeading *)heading;
 
- 
+#pragma mark - Authorization States
+
+/**
+ *  @return YES if the authorization status is not determined, else NO.
+ */
+
+- (BOOL)authorizationNotDetermined;
+
+/**
+ *  @return YES if authorized, else NO.
+ */
+
+- (BOOL)authorizedWhenInUse;
+
+/**
+ *  @eturn YES if authorized, else NO.
+ */
+
+- (BOOL)authorizedAlways;
+
+/**
+ *  @eturn YES if denied, else NO.
+ */
+
+- (BOOL)authorizationDenied;
+
+/**
+ *   @eturn YES if restricted, else NO.
+ */
+
+- (BOOL)authorizationRestricted;
+
 @end
