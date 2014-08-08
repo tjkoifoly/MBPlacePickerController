@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,7 +19,6 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="iTunesArtwork.png" translatesAutoresizingMaskIntoConstraints="NO" id="dfa-CJ-7XR">
                                 <rect key="frame" x="96" y="43" width="128" height="128"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="HYa-Zn-18h"/>
                                     <constraint firstAttribute="height" constant="128" id="aAZ-p2-mZp"/>
@@ -88,7 +88,7 @@
                             <view tag="55" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RyB-fE-5hi">
                                 <rect key="frame" x="20" y="342" width="280" height="44"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="3" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="gul-La-dni">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="3" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="gul-La-dni">
                                         <rect key="frame" x="105" y="7" width="166" height="31"/>
                                         <connections>
                                             <action selector="markerSizeChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Vrc-TX-U4z"/>
@@ -187,6 +187,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4">
+            <size key="portraitSize" width="320" height="568"/>
+            <size key="landscapeSize" width="568" height="320"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
 </document>
