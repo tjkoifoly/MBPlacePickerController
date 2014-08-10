@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		462C28111995582500F46FC2 /* MBMarkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C28101995582500F46FC2 /* MBMarkerView.m */; };
+		463EF51D1996FDE300F9B265 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463EF51C1996FDE300F9B265 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		468E0FF21958656A00BA2C56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468E0FF11958656A00BA2C56 /* Foundation.framework */; };
 		468E0FF41958656A00BA2C56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468E0FF31958656A00BA2C56 /* CoreGraphics.framework */; };
 		468E0FF61958656A00BA2C56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468E0FF51958656A00BA2C56 /* UIKit.framework */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		462C280F1995582500F46FC2 /* MBMarkerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMarkerView.h; sourceTree = "<group>"; };
 		462C28101995582500F46FC2 /* MBMarkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMarkerView.m; sourceTree = "<group>"; };
+		463EF51C1996FDE300F9B265 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		468E0FEE1958656A00BA2C56 /* MBPlacePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MBPlacePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		468E0FF11958656A00BA2C56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		468E0FF31958656A00BA2C56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				463EF51D1996FDE300F9B265 /* CoreLocation.framework in Frameworks */,
 				468E0FF41958656A00BA2C56 /* CoreGraphics.framework in Frameworks */,
 				468E0FF61958656A00BA2C56 /* UIKit.framework in Frameworks */,
 				468E0FF21958656A00BA2C56 /* Foundation.framework in Frameworks */,
@@ -147,6 +150,7 @@
 		468E0FF01958656A00BA2C56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				463EF51C1996FDE300F9B265 /* CoreLocation.framework */,
 				468E0FF11958656A00BA2C56 /* Foundation.framework */,
 				468E0FF31958656A00BA2C56 /* CoreGraphics.framework */,
 				468E0FF51958656A00BA2C56 /* UIKit.framework */,
